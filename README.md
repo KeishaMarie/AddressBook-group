@@ -14,30 +14,11 @@ Code:
 input#new-email = null
 Expected output: null
 
-finish hiding email
-make a statement that hides everything
-then when it runs the check it reveals anything that exists
 
+Test: "It should allow users to input work, home, and email addresses"
 
+code:
+test = input#new-email, input#new-home-address, input#new-work-address
 
-add a form a user can input an address
-
-
-
-
-make it so they can add multiple addresses for 1 contact
-
-
-
-make the output display their addresses
-
-
-
-
-
-
-
-
-function contact on 33
-display contact details on 62
-handle form submission
+expected output:
+email, home address, work address

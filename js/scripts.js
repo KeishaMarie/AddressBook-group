@@ -30,11 +30,13 @@ AddressBook.prototype.deleteContact = function(id) {
 };
 
 // Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber, email) {
+function Contact(firstName, lastName, phoneNumber, email, homeAddress, workAddress) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
   this.email = email;
+  this.homeAddress = homeAddress;
+  this.workAddress = workAddress;
 }
 
 Contact.prototype.fullName = function() {
@@ -67,17 +69,31 @@ function displayContactDetails(event) {
   document.querySelector(".last-name").innerText = contact.lastName;
   document.querySelector(".phone-number").innerText = contact.phoneNumber;
   document.querySelector(".email").innerText = contact.email;
+  document.querySelector(".homeAddress").innerText = contact.homeAddress;
+  document.querySelector(".workAddress").innerText = contact.workAddress;
   document.querySelector("button.delete").setAttribute("id", contact.id);
   document.querySelector("div#contact-details").removeAttribute("class");
   optionalCheck(contact)
 }
 
-function optionalCheck(e) {
-  document.querySelector("div#email").setAttribute("class", "hiddenE")
-  const email = e.email;
+function optionalCheck(arguement) {
+  document.querySelector("div#email").setAttribute("class", "hidden")
+  document.querySelector("div#homeAddress").setAttribute("class", "hidden")
+  document.querySelector("div#workAddress").setAttribute("class", "hidden")
+  const email = arguement.email;
   if (email !== "") {
     console.log(email, typeof(email));
     document.querySelector("div#email").removeAttribute("class");
+  }
+  const homeAddress = arguement.homeAddress;
+  if (homeAddress !== "") {
+    console.log(homeAddress, typeof(homeAddress));
+    document.querySelector("div#homeAddress").removeAttribute("class");
+  }
+  const workAddress = arguement.workAddress;
+  if (workAddress !== "") {
+    console.log(workAddress, typeof(workAddress));
+    document.querySelector("div#workAddress").removeAttribute("class");
   }
 }
 
@@ -96,7 +112,9 @@ function handleFormSubmission(event) {
   const inputtedLastName = document.querySelector("input#new-last-name").value;
   const inputtedPhoneNumber = document.querySelector("input#new-phone-number").value;
   const inputtedEmail = document.querySelector("input#new-email").value;
-  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail);
+  const inputtedHomeAddress = document.querySelector("input#new-home-address").value;
+  const inputtedWorkAddress = document.querySelector("input#new-work-address").value;
+  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail, inputtedHomeAddress, inputtedWorkAddress);
   console.log("address book you just added: " + newContact)
   addressBook.addContact(newContact);
   listContacts(addressBook);
@@ -104,6 +122,8 @@ function handleFormSubmission(event) {
   document.querySelector("input#new-last-name").value = null;
   document.querySelector("input#new-phone-number").value = null;
   document.querySelector("input#new-email").value = null;
+  document.querySelector("input#new-home-address").value = null;
+  document.querySelector("input#new-work-address").value = null;
 }
 
 window.addEventListener("load", function (){
